@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\victor.bancells\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\victor.bancells\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Item Pool.-1791223370.00" t="ExcludeRecursive" />
+    <e p="C:\Users\victor.bancells\Documents\Git\Item Pool" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="Instacied" t="Include">
+            <e p="stuff.cs" t="Include" />
+          </e>
+          <e p="Instanciate" t="Include">
+            <e p="StuffSpawner.cs" t="Include" />
+          </e>
+          <e p="Pool" t="Include">
+            <e p="ObjectPool.cs" t="Include" />
+            <e p="PooledObject.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Item Pool.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
