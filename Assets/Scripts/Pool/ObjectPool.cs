@@ -1,55 +1,84 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Instacied;
+using Management.S.O;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Pool
 {
     public class ObjectPool : MonoBehaviour
     {
-        private PooledObject prefab;
-        public List<PooledObject> availableObjects = new List<PooledObject>();
+        public static ObjectPool SharedInstance;
+        public List<Entity> PooledObjects = new List<Entity>();
+        public List<Entity> ObjectsToPool = new List<Entity>();
+        public int AmountOfInstance;
         
-        public static ObjectPool GetPool(PooledObject prefab)
+        private void Awake()
+        {
+            SharedInstance = this;
+            
+        }
+
+        private void Start()
+        {
+            for (int i = 0; i < AmountOfInstance; i++)
+            {
+                PooledObjects.Add(Instantiate(ObjectsToPool[Random.Range(0,ObjectsToPool.Count-1)],this.transform));
+                PooledObjects[i].ID = i;
+            }
+        }
+
+        public static ObjectPool GetPool(SpawnPref pref)
         {
             GameObject obj;
             ObjectPool pool;
-            // Si les pool ont été créées manuellement set la pool comme etant ces objets.
             if (Application.isEditor)
             {
-                obj = GameObject.Find(prefab.name + " Pool");
+                obj = GameObject.Find("Pool");
                 if (obj)
                 {
                     pool = obj.GetComponent<ObjectPool>();
                     if (pool) return pool;
+                    else
+                    {
+                        obj.AddComponent<ObjectPool>();
+                        pool = obj.GetComponent<ObjectPool>();
+                        pool = SetNewPool(pref,pool);
+                        return pool;
+                    }
                 }
             }
-            //sinon créé des objets en tant que pool
-            obj = new GameObject(prefab.name + " Pool");
-            pool = obj.AddComponent<ObjectPool>();
-            pool.prefab = prefab;
+            obj = new GameObject("Pool");
+            obj.AddComponent<ObjectPool>();
+            pool = obj.GetComponent<ObjectPool>();
+            if(!pool) throw new NotImplementedException("No Pool Set");
+            pool = SetNewPool(pref,pool);
             return pool;
         }
-        public PooledObject GetObject()
+
+        public static ObjectPool SetNewPool(SpawnPref pref, ObjectPool pool)
         {
-            PooledObject obj;
-            int lastAvailableIndex = availableObjects.Count - 1;
-            if (lastAvailableIndex >= 0)
-            {
-                obj = availableObjects[lastAvailableIndex];
-                availableObjects.RemoveAt(lastAvailableIndex);
-                obj.gameObject.SetActive(true);
-            }
-            else
-            {
-                obj = Instantiate(prefab);
-                obj.transform.SetParent(transform,false);
-                obj.Pool = this;
-            }
-            return obj;
+            pool.ObjectsToPool = pref.ObjectsToPool;
+            pool.AmountOfInstance = pref.AmountOfInstance;
+            return pool;
         }
-        public void AddObject(PooledObject po)
+
+        public void ReturnToPool(GameObject obj)
         {
-            po.gameObject.SetActive(false);
-            availableObjects.Add(po);
+            obj.SetActive(false);
+        }
+
+        public Entity OutOfPool()
+        {
+            for (int i = 0; i < PooledObjects.Count; i++)
+            {
+                if (!PooledObjects[i].gameObject.activeInHierarchy)
+                {
+                    return PooledObjects[i];
+                }
+            }
+            return null;
         }
     }
 }
