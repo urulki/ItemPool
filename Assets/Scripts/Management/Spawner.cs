@@ -1,4 +1,4 @@
-﻿using Instacied;
+﻿using Instatied;
 using UnityEngine;
 
 namespace Management

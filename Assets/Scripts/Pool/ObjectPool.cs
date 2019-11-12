@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Instacied;
+using Instatied;
 using Management.S.O;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -73,7 +73,7 @@ namespace Pool
         {
             for (int i = 0; i < PooledObjects.Count; i++)
             {
-                if (!PooledObjects[i].gameObject.activeInHierarchy)
+                if (!PooledObjects[i].gameObject.activeSelf)
                 {
                     return PooledObjects[i];
                 }

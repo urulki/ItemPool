@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Instacied;
+using Instatied;
 using Management.S.O;
 using Pool;
 using UnityEngine;
@@ -11,19 +11,19 @@ namespace Management
         public SpawnPref Pref;
 
         public float SpawnInterval;
-        private float _timer;
+        public float _timer;
         
         public List<Spawner> Spawners = new List<Spawner>();
-        public List<Entity> ActiveEntity = new List<Entity>();
+        
 
         private GameObject _instance1;
         private GameObject _instance2;
 
-        private bool finished;
+        public bool finished;
         
         void Awake()
         {
-            
+            finished = false;
            ObjectPool.GetPool(Pref);
             
         }
@@ -38,14 +38,6 @@ namespace Management
             }
         }
 
-        private void CheckActiveEntity()
-        {
-            for (int i = 0; i < ActiveEntity.Count - 1; i++)
-            {
-                if (ActiveEntity[i].gameObject.activeInHierarchy) ActiveEntity.Remove(ActiveEntity[i]);
-            }
-        }
-
         private void Spawner()
         {
             
@@ -54,34 +46,20 @@ namespace Management
             {
                 _instance1 = ObjectPool.SharedInstance.OutOfPool().gameObject;
                 SetupInstance(_instance1.GetComponent<Entity>());
-                ActiveEntity.Add(_instance1.GetComponent<Entity>());
 
 
                 _instance2 = ObjectPool.SharedInstance.OutOfPool().gameObject;
                 SetupInstance(_instance2.GetComponent<Entity>());
-                ActiveEntity.Add(_instance2.GetComponent<Entity>());
             }
-            CheckActiveEntity();
-            SetTarget(_instance1);
-            SetTarget(_instance2);
             finished = true;
         }
 
         void SetupInstance(Entity entity)
         {
-            entity.transform.position = Spawners[entity.ID].transform.position;
-            Spawners[entity.ID].LinkedEntity = entity;
+            entity.transform.position = Spawners[Random.Range(0,3)].transform.position;
             entity.gameObject.SetActive(true);
         }
 
-        void SetTarget(GameObject entity)
-        {
-            int randSpawner = Random.Range(0, Spawners.Count - 1);
-            while(randSpawner == entity.GetComponent<Entity>().ID)
-            {
-                randSpawner = Random.Range(0, Spawners.Count - 1);
-            }
-            entity.GetComponent<Entity>().Agent.SetDestination( Spawners[randSpawner].LinkedEntity.transform.position);
-        }
+        
     }
 }

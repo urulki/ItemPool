@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SpawnPref0
   m_EditorClassIdentifier: 
   ObjectsToPool:
-  - {fileID: 5118089386260666785, guid: 25137cb3c02b45a4ab92f0e328555767, type: 3}
-  - {fileID: 5722327221477376982, guid: 9366fca01179b834393341490581434a, type: 3}
-  - {fileID: 7325408472536873715, guid: 4c35ece95faa98f48a679e2a0300c86e, type: 3}
-  - {fileID: 2540844949838546884, guid: f67ea9a9284dc7d4091d2958ab8f651b, type: 3}
+  - {fileID: 3902070259664681493, guid: 25137cb3c02b45a4ab92f0e328555767, type: 3}
+  - {fileID: 4038155608218951115, guid: 9366fca01179b834393341490581434a, type: 3}
+  - {fileID: 748148129362903993, guid: 4c35ece95faa98f48a679e2a0300c86e, type: 3}
+  - {fileID: 9163996219126322577, guid: f67ea9a9284dc7d4091d2958ab8f651b, type: 3}
   AmountOfInstance: 2000

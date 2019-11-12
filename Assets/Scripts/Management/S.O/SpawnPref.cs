@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Instacied;
+using Instatied;
 using UnityEngine;
 
 namespace Management.S.O
